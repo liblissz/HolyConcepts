@@ -1,0 +1,141 @@
+.newsteller{
+    width: 65%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 300px;
+    padding: 0 140px;
+    margin-bottom: 150px;
+
+    background: linear-gradient(180deg, #fde1ff 0%, #e1ffe022 60%);
+ gap: 30px;
+}
+.newsteller h1{
+    color: #454545;
+    font-size: 55px;
+    font-weight: 600;
+}
+.newsteller p{
+    color: #454545;
+    font-size: 20px;
+}
+.newsteller div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    width: 730px;
+    height: 70px;
+    border-radius: 80px;
+    border: 1px solid #e3e3e3;
+}
+.newsteller div input{
+    width: 500px;
+    margin-left: 30px;
+    outline: none;
+    border: none;
+    color: #616161;
+    font-family: Poppins;
+    font-size: 16px;
+}
+.newsteller div button{
+    width: 210px;
+    height: 70px;
+    border-radius: 80px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+@media (max-width: 1280px) {
+    .newsteller{
+        margin: 0px 8px;
+        margin-bottom: 120px;
+        margin-top: 200px;
+        gap: 20px;
+      
+    }
+    .newsteller h1{
+        font-size: 36px;
+    }
+    .newsteller p{
+        font-size: 16px;
+    }
+    .newsteller div{
+        width: 600px;
+        height: 60px;
+    }
+    .newsteller div input{
+        width: 400px;
+    }
+    .newsteller div button{
+        width: 160px;
+        height: 60px;
+    }
+}
+
+
+
+
+@media (max-width: 1024px) {
+    .newsteller{
+        margin: 0px 8px;
+        margin-bottom: 60px;
+        margin-top: 200px;
+        gap: 20px;
+        height: 35vh;
+      
+    }
+    .newsteller h1{
+        font-size: 18px;
+    }
+    .newsteller p{
+        font-size: 12px;
+    }
+    .newsteller div{
+        width: 400px;
+        height: 40px;
+    }
+    .newsteller div input{
+        width: 200px;
+        font-size: 13px;
+    }
+    .newsteller div button{
+        width: 100px;
+        height: 40px;
+        border: none;
+        outline: none;
+        font-size: 13px;
+    }
+}
+
+
+
+@media (max-width: 500px) {
+    .newsteller{
+        height: 25vh;
+        width: 80%;
+      padding: 5px;
+      gap: 15px;
+    }
+    .newsteller h1{
+        font-size: 15px;
+      
+    }
+    .newsteller p{
+        font-size: 13px;
+        max-width: 200px;
+        text-align: center;
+    }
+    .newsteller div{
+        width: 290px;
+        height: 40px;
+    }
+    .newsteller div input{
+        width: 130px;
+    }
+   
+}
