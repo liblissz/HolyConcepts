@@ -102,7 +102,7 @@ padding: 20px;
 
 @media (max-width: 500px) {
     .new-collection{
-        height: 200vh;
+        height: 120vh;
 
     }
     .collections{
