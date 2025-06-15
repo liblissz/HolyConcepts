@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Item.css';
 import { Link } from 'react-router-dom'; // ✅ Required for navigation
+import Shimer from '../Shimerload/Shimer';
 
 const Item = (props) => {
+   const [load, setload] = useState(true)
+
+   useEffect(()=>{
+    setTimeout(()=>{
+      setload(false)
+    },2000)
+
+    return clearTimeout()
+   })
   return (
-    <div className='item'>
+    <>
+    {load? <Shimer/>: <div className='item'>
       <Link to={`/Product/${props.id}`}>
         <img onClick={window.scrollTo(0,0)} src={props.image} alt={props.name} />
       </Link>
@@ -17,7 +28,9 @@ const Item = (props) => {
           {props.old_price}frs
         </div>
       </div>
-    </div>
+    </div> }
+   
+    </>
   );
 };
 

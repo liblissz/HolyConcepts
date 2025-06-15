@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import Hero from '../Components/hero/Hero';
 import Item from '../Components/Item/Item';
@@ -6,8 +6,18 @@ import Populate from '../Components/Popular/Populate';
 import Offers from '../Components/Offers/Offers';
 import NewCollection from '../Components/NewCollection/NewCollection';
 import Newsteller from '../Components/Newsteller/Newsteller';
+import Shimer from '../Components/Shimerload/Shimer';
 
 const Shop = () => {
+ const [load, setload]  = useState(true)
+  useEffect(()=> {
+    const timer = setTimeout(()=>{
+         setload(false)
+       }, 10000)
+
+    return ()=> clearTimeout(timer)
+  }, [])
+
   useEffect(() => {
     // Ask for notification permission
     if (Notification.permission !== 'granted') {
@@ -36,9 +46,11 @@ const Shop = () => {
   return (
     <div>
       <Hero />
-      <Populate />
+      
+      {load? <Shimer/>: <Populate /> }
       <Offers />
-      <NewCollection />
+      
+      {load? <Shimer/>: <NewCollection />}
       <Newsteller />
     </div>
   );
