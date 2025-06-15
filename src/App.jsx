@@ -9,6 +9,7 @@ import Footer from "./Components/Footer/Footer";
 import men_banner from './Components/assets/Frontend_Assets/banner_mens.png'
 import women_banner from './Components/assets/Frontend_Assets/banner_women.png'
 import banner_kids from './Components/assets/Frontend_Assets/banner_kids.png'
+import NetworkStatus from "./Components/networkstatus/NetworkStatus";
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
   </Routes>
   <Footer/>
   </BrowserRouter>
-
+<NetworkStatus/>
  </div>
   );
 }
