@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './CSS/Loginsignup.css';
+import toast from 'react-hot-toast';
 
 const LoginSignup = () => {
   const [state, setState] = useState("Log In");
-
+    const [loading, setloading] = useState(false)
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -32,12 +33,15 @@ const LoginSignup = () => {
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
         window.location.replace('/');
+        toast.success("you have sucessfully loged in")
       } else {
-        alert(responseData.errors || "Signup failed. Please try again.");
+        toast.error(responseData.errors || "Signup failed. Please try again.");
       }
     } catch (error) {
       console.error("❌ Error during signup:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.");
+    }finally{
+      setloading(true)
     }
   };
 
@@ -60,12 +64,15 @@ const LoginSignup = () => {
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
         window.location.replace('/');
+        toast.success("you have sign up successfully")
       } else {
-        alert(responseData.errors || "Signup failed. Please try again.");
+        toast.error(responseData.errors || "Signup failed. Please try again.");
       }
     } catch (error) {
       console.error("❌ Error during signup:", error);
       alert("An error occurred. Please try again later.");
+    }finally{
+      setloading(true)
     }
   };
 
@@ -108,9 +115,10 @@ const LoginSignup = () => {
             onClick={() => {
               state === "Log In" ? login() : signup();
             }}
-          >
-            Continue
+            disabled={loading} >
+            {loading? "loading...":  "Continue"}
           </button>
+
         </div>
 
         {state === "Sign Up" ? (
