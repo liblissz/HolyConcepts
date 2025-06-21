@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import './CSS/Loginsignup.css';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const LoginSignup = () => {
   const [state, setState] = useState("Log In");
-    const [loading, setloading] = useState(true)
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -16,7 +19,12 @@ const LoginSignup = () => {
   };
 
   const login = async () => {
-    console.log("Working login", formData);
+    if (!formData.email || !formData.password) {
+      toast.error("Please fill in both email and password.");
+      return;
+    }
+
+    setLoading(true);
     try {
       const response = await fetch('https://holyconceptsbackend.onrender.com/login', {
         method: "POST",
@@ -32,22 +40,26 @@ const LoginSignup = () => {
 
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
-        window.location.replace('/');
-        toast.success("you have sucessfully loged in")
+        toast.success("You have successfully logged in");
+        navigate('/');
       } else {
-        toast.error(responseData.errors || "Signup failed. Please try again.");
+        toast.error(responseData.message || responseData.errors?.[0] || "Login failed.");
       }
     } catch (error) {
-      console.error("❌ Error during signup:", error);
+      console.error("❌ Error during login:", error);
       toast.error("An error occurred. Please try again later.");
-    }finally{
-      setloading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
   const signup = async () => {
-    console.log("Working signup", formData);
+    if (!formData.username || !formData.email || !formData.password) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
 
+    setLoading(true);
     try {
       const response = await fetch('https://holyconceptsbackend.onrender.com/signup', {
         method: "POST",
@@ -63,16 +75,16 @@ const LoginSignup = () => {
 
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
-        window.location.replace('/');
-        toast.success("you have sign up successfully")
+        toast.success("You have signed up successfully");
+        navigate('/');
       } else {
-        toast.error(responseData.errors || "Signup failed. Please try again.");
+        toast.error(responseData.message || responseData.errors?.[0] || "Signup failed.");
       }
     } catch (error) {
       console.error("❌ Error during signup:", error);
-      alert("An error occurred. Please try again later.");
-    }finally{
-      setloading(false)
+      toast.error("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,15 +124,14 @@ const LoginSignup = () => {
           />
 
           <button
-  onClick={() => {
-    state === "Log In" ? login() : signup();
-  }}
-  disabled={loading}
->
-  {loading ? "Loading..." : "Continue"}
-</button>
-
-
+            onClick={() => {
+              if (loading) return;
+              state === "Log In" ? login() : signup();
+            }}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Continue"}
+          </button>
         </div>
 
         {state === "Sign Up" ? (
