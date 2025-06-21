@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import './CSS/Loginsignup.css';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
 const LoginSignup = () => {
   const [state, setState] = useState("Log In");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -19,12 +15,7 @@ const LoginSignup = () => {
   };
 
   const login = async () => {
-    if (!formData.email || !formData.password) {
-      alert("Please fill in both email and password.");
-      return;
-    }
-
-    setLoading(true);
+    console.log("Working login", formData);
     try {
       const response = await fetch('https://holyconceptsbackend.onrender.com/login', {
         method: "POST",
@@ -40,26 +31,19 @@ const LoginSignup = () => {
 
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
-        alert("You have successfully logged in");
-        navigate('/');
+        window.location.replace('/');
       } else {
-        toast.error(responseData.message || responseData.errors?.[0] || "Login failed.");
+        alert(responseData.errors || "Signup failed. Please try again.");
       }
     } catch (error) {
-      console.error("❌ Error during login:", error);
-      toast.error("An error occurred. Please try again later.");
-    } finally {
-      setLoading(false);
+      console.error("❌ Error during signup:", error);
+      alert("An error occurred. Please try again later.");
     }
   };
 
   const signup = async () => {
-    if (!formData.username || !formData.email || !formData.password) {
-      toast.error("Please fill in all fields.");
-      return;
-    }
+    console.log("Working signup", formData);
 
-    setLoading(true);
     try {
       const response = await fetch('https://holyconceptsbackend.onrender.com/signup', {
         method: "POST",
@@ -75,16 +59,13 @@ const LoginSignup = () => {
 
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
-        alert("You have signed up successfully");
-        navigate('/');
+        window.location.replace('/');
       } else {
-        toast.error(responseData.message || responseData.errors?.[0] || "Signup failed.");
+        alert(responseData.errors || "Signup failed. Please try again.");
       }
     } catch (error) {
       console.error("❌ Error during signup:", error);
-      toast.error("An error occurred. Please try again later.");
-    } finally {
-      setLoading(false);
+      alert("An error occurred. Please try again later.");
     }
   };
 
@@ -125,12 +106,10 @@ const LoginSignup = () => {
 
           <button
             onClick={() => {
-              if (loading) return;
               state === "Log In" ? login() : signup();
             }}
-            disabled={loading}
           >
-            {loading ? "Loading..." : "Continue"}
+            Continue
           </button>
         </div>
 
