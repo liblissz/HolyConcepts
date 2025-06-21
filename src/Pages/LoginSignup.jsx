@@ -20,7 +20,7 @@ const LoginSignup = () => {
 
   const login = async () => {
     if (!formData.email || !formData.password) {
-      toast.error("Please fill in both email and password.");
+      alert("Please fill in both email and password.");
       return;
     }
 
@@ -40,7 +40,7 @@ const LoginSignup = () => {
 
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
-        toast.success("You have successfully logged in");
+        alert("You have successfully logged in");
         navigate('/');
       } else {
         toast.error(responseData.message || responseData.errors?.[0] || "Login failed.");
@@ -75,7 +75,7 @@ const LoginSignup = () => {
 
       if (response.ok && responseData.success) {
         localStorage.setItem('auth-token', responseData.token);
-        toast.success("You have signed up successfully");
+        alert("You have signed up successfully");
         navigate('/');
       } else {
         toast.error(responseData.message || responseData.errors?.[0] || "Signup failed.");
