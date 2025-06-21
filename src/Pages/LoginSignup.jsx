@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 const LoginSignup = () => {
   const [state, setState] = useState("Log In");
-    const [loading, setloading] = useState(false)
+    const [loading, setloading] = useState(true)
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -41,7 +41,7 @@ const LoginSignup = () => {
       console.error("❌ Error during signup:", error);
       toast.error("An error occurred. Please try again later.");
     }finally{
-      setloading(true)
+      setloading(false)
     }
   };
 
@@ -72,7 +72,7 @@ const LoginSignup = () => {
       console.error("❌ Error during signup:", error);
       alert("An error occurred. Please try again later.");
     }finally{
-      setloading(true)
+      setloading(false)
     }
   };
 
@@ -112,12 +112,14 @@ const LoginSignup = () => {
           />
 
           <button
-            onClick={() => {
-              state === "Log In" ? login() : signup();
-            }}
-            disabled={loading} >
-            {loading? "loading...":  "Continue"}
-          </button>
+  onClick={() => {
+    state === "Log In" ? login() : signup();
+  }}
+  disabled={loading}
+>
+  {loading ? "Loading..." : "Continue"}
+</button>
+
 
         </div>
 
